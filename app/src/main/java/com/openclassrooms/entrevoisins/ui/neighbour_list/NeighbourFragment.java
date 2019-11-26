@@ -21,7 +21,9 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-
+/* 3. Notre liste de voisins est matérialisée par un fragment qui contient une RecyclerView.
+ * La classe d'un fragment hérite de Fragment afin de récupérer tout le comportement et les propriétés que peut avoir un fragment
+ */
 public class NeighbourFragment extends Fragment {
 
     private NeighbourApiService mApiService;
@@ -38,15 +40,16 @@ public class NeighbourFragment extends Fragment {
         return fragment;
     }
 
+    /*  A la création du fragment, on crée une instance de l'API qui contient les méthodes pour gérer nos datas*/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
     }
 
+    /*A la constitution de l'affichage, on met en place la RecyclerView et on lui passe les datas de notre model dans initList()*/
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_neighbour_list, container, false);
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
