@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D2D6F5"
+    android:background="@color/colorBackgroundDetails"
     tools:context=".ui.neighbour_list.NeighbourDetailsActivity">
 
     <RelativeLayout
         android:id="@+id/neighbour_details_header"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -41,7 +41,7 @@
             android:textColor="@android:color/white"
             android:textSize="26sp"
             android:textStyle="bold"
-            tools:text="Caroline" />
+            android:text="Caroline" />
 
     </RelativeLayout>
 
@@ -49,9 +49,7 @@
         android:id="@+id/neighbour_details_contacts_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
+        style="@style/Neighbour_Details_Cardview"
         app:layout_constraintTop_toBottomOf="@id/neighbour_details_header">
 
         <RelativeLayout
@@ -65,19 +63,15 @@
                 android:layout_alignParentTop="true"
                 android:layout_margin="4dp"
                 android:padding="4dp"
-                android:textColor="#3F3A3A"
-                android:textSize="22sp"
-                tools:text="Caroline" />
+                style="@style/Neighbour_Details_Cardview_Title"
+                android:text="Caroline" />
 
             <ImageView
                 android:id="@+id/contacts_cardview_place_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/contacts_cardview_firstname_txt"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:padding="4dp"
+                style="@style/Neighbour_Details_Contacts_Cardview_ImageView"
                 android:src="@drawable/ic_place_red_24dp" />
 
             <TextView
@@ -86,23 +80,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/contacts_cardview_firstname_txt"
                 android:layout_alignBottom="@id/contacts_cardview_place_img"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="4dp"
+                style="@style/Neighbour_Details_Contacts_Cardview_TextView"
                 android:layout_toEndOf="@id/contacts_cardview_place_img"
-                android:gravity="bottom"
-                android:text="Saint-Pierre-du-Mont"
-                android:textSize="16sp" />
+                android:text="Saint-Pierre-du-Mont" />
 
             <ImageView
                 android:id="@+id/contacts_cardview_phone_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/contacts_cardview_place_img"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:padding="4dp"
+                style="@style/Neighbour_Details_Contacts_Cardview_ImageView"
                 android:src="@drawable/ic_call_red_24dp" />
 
             <TextView
@@ -111,23 +98,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/contacts_cardview_place_txt"
                 android:layout_alignBottom="@id/contacts_cardview_phone_img"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="4dp"
+                style="@style/Neighbour_Details_Contacts_Cardview_TextView"
                 android:layout_toEndOf="@id/contacts_cardview_phone_img"
-                android:gravity="bottom"
-                android:text="+33 6 86 57 90 14"
-                android:textSize="16sp" />
+                android:text="+33 6 86 57 90 14" />
 
             <ImageView
                 android:id="@+id/contacts_cardview_global_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/contacts_cardview_phone_img"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:padding="4dp"
+                style="@style/Neighbour_Details_Contacts_Cardview_ImageView"
                 android:src="@drawable/ic_language_red_24dp" />
 
             <TextView
@@ -136,13 +116,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTel"
                 android:layout_alignBottom="@id/contacts_cardview_global_img"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="4dp"
+                style="@style/Neighbour_Details_Contacts_Cardview_TextView"
                 android:layout_toEndOf="@id/contacts_cardview_global_img"
-                android:gravity="bottom"
-                android:text="www.facebook.com/caroline"
-                android:textSize="16sp" />
+                android:text="www.facebook.com/caroline" />
 
         </RelativeLayout>
 
@@ -152,9 +128,7 @@
         android:id="@+id/neighbour_details_description_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
+        style="@style/Neighbour_Details_Cardview"
         app:layout_constraintTop_toBottomOf="@id/neighbour_details_contacts_cardview">
 
         <LinearLayout
@@ -169,8 +143,7 @@
                 android:layout_margin="4dp"
                 android:padding="4dp"
                 android:text="A propos de moi"
-                android:textColor="#3F3A3A"
-                android:textSize="22sp" />
+                style="@style/Neighbour_Details_Cardview_Title" />
 
             <TextView
                 android:id="@+id/description_cardview_description_txt"

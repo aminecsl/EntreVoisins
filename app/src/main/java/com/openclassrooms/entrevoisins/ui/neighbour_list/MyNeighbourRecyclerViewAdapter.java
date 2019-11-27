@@ -1,5 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity.BUNDLE_EXTRA_NEIGHBOUR;
+
 /* 2. Le RecyclerViewAdapter permet de faire la liaison entre la vue RecyclerView et et notre contrôleur NeighbourFragment*/
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
@@ -28,6 +32,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     /*Le constructor prenant en paramètres notre liste de voisins*/
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
+
         mNeighbours = items;
     }
 
@@ -59,6 +64,18 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
             }
         });
+
+        /*On met un listener sur chaque ligne qui represente un voisin dans notre RecyclerView
+        * et au clic on fait passer notre objet neighbour dans l'intent pour le récupérer dans la
+        * NeighbourDetailsActivity */
+        holder.mListItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent neighbourDetailsIntent = new Intent(view.getContext(), NeighbourDetailsActivity.class);
+                neighbourDetailsIntent.putExtra(BUNDLE_EXTRA_NEIGHBOUR, neighbour);
+                view.getContext().startActivity(neighbourDetailsIntent);
+            }
+        });
     }
 
     /* Permet de retourner la taille de notre liste d'objet, et ainsi d'indiquer à l'Adapter le nombre
@@ -74,6 +91,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         @BindView(R.id.item_list_avatar) public ImageView mNeighbourAvatar;
         @BindView(R.id.item_list_name) public TextView mNeighbourName;
         @BindView(R.id.item_list_delete_button) public ImageButton mDeleteButton;
+        @BindView(R.id.list_item) public ConstraintLayout mListItem;
 
         public ViewHolder(View view) {
             super(view);

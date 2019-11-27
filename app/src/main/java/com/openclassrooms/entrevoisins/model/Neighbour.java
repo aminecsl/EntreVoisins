@@ -1,11 +1,13 @@
 package com.openclassrooms.entrevoisins.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Model object representing a Neighbour
+ * L'interface Serializable est une classe Java utilisée pour pouvoir passer un objet de Neighbour dans un intent.putExtra()
  */
-public class Neighbour {
+public class Neighbour implements Serializable {
 
     /** Identifier */
     private Integer id;

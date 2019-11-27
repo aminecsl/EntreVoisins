@@ -25,6 +25,9 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
     ListNeighbourPagerAdapter mPagerAdapter;
 
+    //Clé servant d'identifiant pour l'objet neighbout à passer dans l'intent vers la NeighbourDetailsActivity
+    public static final String BUNDLE_EXTRA_NEIGHBOUR = "BUNDLE_EXTRA_NEIGHBOUR";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
