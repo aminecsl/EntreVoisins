@@ -1,6 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.ShowNeighbourDetailsEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
@@ -20,6 +22,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
+
+import static com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity.BUNDLE_EXTRA_NEIGHBOUR;
 
 /* 3. Notre liste de voisins est matérialisée par un fragment qui contient une RecyclerView.
  * La classe d'un fragment hérite de Fragment afin de récupérer tout le comportement et les propriétés que peut avoir un fragment
@@ -67,18 +71,21 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
+    //Le fragment s'enregistre en tant que receveur d'un event auprès de EventBus
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
+    //Le fragment doit se désinscrire en tant que receveur auprès de EventBus
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
 
+    //Ci-dessous nos méthodes appelées automatiquement depuis les classe (ou activités) où les events sont déclenchés avec EventBus
     /**
      * Fired if the user clicks on a delete button
      * @param event
@@ -87,5 +94,12 @@ public class NeighbourFragment extends Fragment {
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
+    }
+
+    @Subscribe
+    public void onNeighbourDetails(ShowNeighbourDetailsEvent event) {
+        Intent neighbourDetailsIntent = new Intent(getContext(), NeighbourDetailsActivity.class);
+        neighbourDetailsIntent.putExtra(BUNDLE_EXTRA_NEIGHBOUR, event.neighbour);
+        startActivity(neighbourDetailsIntent);
     }
 }

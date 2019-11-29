@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.ShowNeighbourDetailsEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,19 +62,19 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
             }
         });
 
         /*On met un listener sur chaque ligne qui represente un voisin dans notre RecyclerView
-        * et au clic on fait passer notre objet neighbour dans l'intent pour le récupérer dans la
-        * NeighbourDetailsActivity */
+        * et au clic on délclenche un "event" qui sera transmis grâce à EventBus à notre fragement qui va se charger de
+        * lancer la nouvelle activity avec l'Intent*/
         holder.mListItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent neighbourDetailsIntent = new Intent(view.getContext(), NeighbourDetailsActivity.class);
-                neighbourDetailsIntent.putExtra(BUNDLE_EXTRA_NEIGHBOUR, neighbour);
-                view.getContext().startActivity(neighbourDetailsIntent);
+
+                EventBus.getDefault().post(new ShowNeighbourDetailsEvent(neighbour));
             }
         });
     }
