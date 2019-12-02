@@ -14,14 +14,15 @@ import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity.BUNDLE_EXTRA_NEIGHBOUR;
 
 public class NeighbourDetailsActivity extends AppCompatActivity {
 
-    public TextView mHeaderFristname;
-    public TextView mCardViewFristname;
-    public ImageView mHeaderAvatar;
+    @BindView(R.id.neighbour_details_firstname_txt) TextView mHeaderFristname;
+    @BindView(R.id.contacts_cardview_firstname_txt) TextView mCardViewFristname;
+    @BindView(R.id.neighbour_details_avatar_img) ImageView mHeaderAvatar;
 
     private Neighbour myNeighbour;
 
@@ -30,14 +31,9 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_details);
-        /*Toolbar toolbar = findViewById(R.id.neighbour_details_header);
-        setSupportActionBar(toolbar);*/
+        ButterKnife.bind(this);
 
         myNeighbour = (Neighbour) getIntent().getSerializableExtra(BUNDLE_EXTRA_NEIGHBOUR);
-
-        mHeaderFristname = (TextView)findViewById(R.id.neighbour_details_firstname_txt);
-        mCardViewFristname = (TextView)findViewById(R.id.contacts_cardview_firstname_txt);
-        mHeaderAvatar = (ImageView) findViewById(R.id.neighbour_details_avatar_img);
 
         mHeaderFristname.setText(myNeighbour.getName());
         mCardViewFristname.setText(myNeighbour.getName());
