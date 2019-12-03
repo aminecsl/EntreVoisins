@@ -18,14 +18,20 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
 
     /**
      * getItem is called to instantiate the fragment for the given page.
-     * appelée dès qu'une page (fragment) demandera à être affichée.
-     * @param position
+     * Appelée dès qu'une page (fragment) demandera à être affichée.
+     * @param position (commence à l'index 0)
      * @return
      */
     @Override
     public Fragment getItem(int position) {
 
-        return NeighbourFragment.newInstance();
+        //Si on veut afficher le 2ème onglet, alors on demande une instance de notre fragment qui portera comme nom de page "favorite neighbours"
+        if (position == 1) {
+
+            return NeighbourFragment.newInstance("favorite neighbours");
+        } else {
+            return NeighbourFragment.newInstance("all neighbours");
+        }
     }
 
     /**
@@ -35,6 +41,6 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
 
-        return 1;
+        return 2;
     }
 }

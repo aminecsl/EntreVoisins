@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface NeighbourApiService {
 
+
     /**
      * Get all my Neighbours
      * @return {@link List}
@@ -21,4 +22,11 @@ public interface NeighbourApiService {
      * @param neighbour
      */
     void deleteNeighbour(Neighbour neighbour);
+
+    List<Neighbour> getFavoriteNeighboursList();
+
+    //Adds or Removes a neighbour from favorites
+    void changeFavoriteStatus(Neighbour neighbour);
+
+
 }

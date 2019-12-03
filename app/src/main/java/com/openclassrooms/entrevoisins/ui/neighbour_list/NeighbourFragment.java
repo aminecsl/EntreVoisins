@@ -32,15 +32,22 @@ public class NeighbourFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
+    private List<Neighbour> mFavoriteNeighbours;
     private RecyclerView mRecyclerView;
+    private static final String PAGE_NAME = "page name";
+    private String pageToShow;
 
 
     /**
      * Create and return a new instance
+     * Chaque instanciation de notre fragment (= 1 page différente) comporte en paramètre le nom de la page qu'on souhaite afficher
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance() {
+    public static NeighbourFragment newInstance(String pageName) {
         NeighbourFragment fragment = new NeighbourFragment();
+        Bundle args = new Bundle();
+        args.putString(PAGE_NAME, pageName);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -59,6 +66,10 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
+        //On récupère le nom de la page à afficher qui a été enreigstré en paramètre de notre instance de fragment
+        pageToShow = getArguments().getString(PAGE_NAME);
+
         initList();
         return view;
     }
@@ -67,8 +78,16 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
+
         mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        mFavoriteNeighbours = mApiService.getFavoriteNeighboursList();
+
+        if (pageToShow == "all neighbours") {
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        } else {
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoriteNeighbours));
+        }
+
     }
 
     //Le fragment s'enregistre en tant que receveur d'un event auprès de EventBus
