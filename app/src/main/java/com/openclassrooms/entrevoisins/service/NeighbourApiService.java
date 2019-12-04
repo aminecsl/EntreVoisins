@@ -23,9 +23,11 @@ public interface NeighbourApiService {
      */
     void deleteNeighbour(Neighbour neighbour);
 
-    List<Neighbour> getFavoriteNeighboursList();
+    /**Return a list of my favorite neighbours*/
+    List<Neighbour> getFavoriteNeighboursFromList();
 
-    //Adds or Removes a neighbour from favorites
+
+    /**Adds or Removes a neighbour from the list of favorites and updates the star color*/
     void changeFavoriteStatus(Neighbour neighbour);
 
 

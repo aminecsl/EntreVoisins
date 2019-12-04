@@ -44,15 +44,31 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         mCardViewFristname.setText(myNeighbour.getName());
         Glide.with(this).load(myNeighbour.getAvatarUrl()).into(mHeaderAvatar);
 
+        //Check for the star color to display either if the current neighbour is a favorite or not
+        setStarColor();
+
         mChangeFavoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //Met à jour l'attribut isFavorite de ce neighbour dans la liste des voisins du model (ApiServiceGenerator)
                 mApiService.changeFavoriteStatus(myNeighbour);
+
+                //Met à jour cet attribut dans l'objet de ce voisin manipulé dans l'activité actuel pour rafraîchir la vue
+                myNeighbour.setFavorite(!myNeighbour.isFavorite());
+
+                //Refresh the star color afer clicked
+                setStarColor();
 
             }
         });
 
+    }
 
+    private void setStarColor (){
+        if (myNeighbour.isFavorite()){
+            mChangeFavoriteBtn.setImageResource(R.drawable.ic_star_yellow_24dp);
+        } else {
+            mChangeFavoriteBtn.setImageResource(R.drawable.ic_star_border_black_24dp);
+        }
     }
 }

@@ -25,12 +25,13 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        //Si on veut afficher le 2ème onglet, alors on demande une instance de notre fragment qui portera comme nom de page "favorite neighbours"
+        /*Quand on veut afficher le 2ème onglet, alors on demande une instance de notre fragment qui portera comme
+        valeur true indiquant qu'on veut la page des favoris*/
         if (position == 1) {
 
-            return NeighbourFragment.newInstance("favorite neighbours");
+            return NeighbourFragment.newInstance(true);
         } else {
-            return NeighbourFragment.newInstance("all neighbours");
+            return NeighbourFragment.newInstance(false);
         }
     }
 

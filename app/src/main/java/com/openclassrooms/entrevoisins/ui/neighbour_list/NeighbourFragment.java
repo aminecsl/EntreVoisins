@@ -34,19 +34,20 @@ public class NeighbourFragment extends Fragment {
     private List<Neighbour> mNeighbours;
     private List<Neighbour> mFavoriteNeighbours;
     private RecyclerView mRecyclerView;
-    private static final String PAGE_NAME = "page name";
-    private String pageToShow;
+    private static final String IS_FAVORITE = "false";
+    private boolean isFavoritesPage;
 
 
     /**
      * Create and return a new instance
-     * Chaque instanciation de notre fragment (= 1 page différente) comporte en paramètre le nom de la page qu'on souhaite afficher
+     * Chaque instanciation de notre fragment (= 1 page différente) comporte comme paramètre dans le
+     * Bundle un booléen qui indique si la page à afficher est celle des favoris ou non
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance(String pageName) {
+    public static NeighbourFragment newInstance(Boolean isFav) {
         NeighbourFragment fragment = new NeighbourFragment();
         Bundle args = new Bundle();
-        args.putString(PAGE_NAME, pageName);
+        args.putBoolean(IS_FAVORITE, isFav);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,9 +69,10 @@ public class NeighbourFragment extends Fragment {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         //On récupère le nom de la page à afficher qui a été enreigstré en paramètre de notre instance de fragment
-        pageToShow = getArguments().getString(PAGE_NAME);
+        isFavoritesPage = getArguments().getBoolean(IS_FAVORITE);
 
         initList();
+
         return view;
     }
 
@@ -80,12 +82,12 @@ public class NeighbourFragment extends Fragment {
     private void initList() {
 
         mNeighbours = mApiService.getNeighbours();
-        mFavoriteNeighbours = mApiService.getFavoriteNeighboursList();
+        mFavoriteNeighbours = mApiService.getFavoriteNeighboursFromList();
 
-        if (pageToShow == "all neighbours") {
-            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
-        } else {
+        if (isFavoritesPage) {
             mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoriteNeighbours));
+        } else {
+            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
         }
 
     }
@@ -103,6 +105,7 @@ public class NeighbourFragment extends Fragment {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
 
     //Ci-dessous nos méthodes appelées automatiquement depuis les classe (ou activités) où les events sont déclenchés avec EventBus
     /**

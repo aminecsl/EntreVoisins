@@ -84,6 +84,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
      */
     @Override
     public int getItemCount() {
+
         return mNeighbours.size();
     }
 
