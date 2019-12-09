@@ -30,6 +30,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     }
 
 
+    /* Return a new list with only the neighbours who have a "true" value in their "isFavorite" attribute*/
     @Override
     public List<Neighbour> getFavoriteNeighboursFromList(){
 
