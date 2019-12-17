@@ -3,7 +3,7 @@ Appli Android servant de base au projet #3 de la formation Dev'Android d'OpenCla
 
 **Instructions pour executer et compiler l'application :**
 
-Téléchargez le dossier du projet
-Ouvrez-le dans Android Studio en faisant "Import an existing projet"
-Laissez le projet se Build
-Lancez l'application sur l'émulateur ou un appareil Android réel branché à l'ordinateur en cliquand sur "Run" (Icône Play verte dans la barre d'outil d'AS) en mode "App"
+1. Téléchargez le dossier du projet
+2. Ouvrez-le dans Android Studio en faisant "Import an existing projet"
+3. Laissez le projet se Build
+4. Lancez l'application sur l'émulateur ou un appareil Android réel branché à l'ordinateur en cliquant sur "Run" (Icône Play verte dans la barre d'outil d'AS) en mode "App"
