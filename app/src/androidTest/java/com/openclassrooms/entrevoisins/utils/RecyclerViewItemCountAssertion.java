@@ -10,6 +10,7 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 
 public class RecyclerViewItemCountAssertion implements ViewAssertion {
+
         private final Matcher<Integer> matcher;
 
         public static RecyclerViewItemCountAssertion withItemCount(int expectedCount) {
@@ -21,6 +22,7 @@ public class RecyclerViewItemCountAssertion implements ViewAssertion {
         }
 
         private RecyclerViewItemCountAssertion(Matcher<Integer> matcher) {
+
             this.matcher = matcher;
         }
 

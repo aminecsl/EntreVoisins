@@ -54,7 +54,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
                 //Met à jour l'attribut isFavorite de ce neighbour dans la liste des voisins du model (ApiServiceGenerator)
                 mApiService.changeFavoriteStatus(myNeighbour);
 
-                //Met à jour cet attribut dans l'objet de ce voisin manipulé dans l'activité actuel pour rafraîchir la vue
+                //Met à jour cet attribut dans l'objet voisin manipulé dans l'activité actuelle pour rafraîchir la vue
                 myNeighbour.setFavorite(!myNeighbour.isFavorite());
 
                 //Refresh the star color afer clicked
@@ -73,14 +73,6 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, ListNeighbourActivity.class);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
 
     @Override
     protected void onStart() {

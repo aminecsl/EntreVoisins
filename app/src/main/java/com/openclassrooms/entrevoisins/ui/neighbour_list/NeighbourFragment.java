@@ -32,9 +32,8 @@ public class NeighbourFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
-    private List<Neighbour> mFavoriteNeighbours;
     private RecyclerView mRecyclerView;
-    private static final String IS_FAVORITE = "false";
+    private static final String IS_FAVORITE = "falseORtrue";
     private boolean isFavoritesPage;
 
 
@@ -71,8 +70,6 @@ public class NeighbourFragment extends Fragment {
         //On récupère le nom de la page à afficher qui a été enreigstré en paramètre de notre instance de fragment
         isFavoritesPage = getArguments().getBoolean(IS_FAVORITE);
 
-        initList();
-
         return view;
     }
 
@@ -81,14 +78,12 @@ public class NeighbourFragment extends Fragment {
      */
     private void initList() {
 
-        mNeighbours = mApiService.getNeighbours();
-        mFavoriteNeighbours = mApiService.getFavoriteNeighboursFromList();
-
         if (isFavoritesPage) {
-            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoriteNeighbours));
+            mNeighbours = mApiService.getFavoriteNeighboursFromList();
         } else {
-            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+            mNeighbours = mApiService.getNeighbours();
         }
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
 
     }
 
@@ -106,6 +101,12 @@ public class NeighbourFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
+    //On a déplacé initList dans onResume() de façon à regénérer (rafraîchir) nos listes en (re)venant sur la Main Activity
+    @Override
+    public void onResume() {
+        super.onResume();
+        initList();
+    }
 
     //Ci-dessous nos méthodes appelées automatiquement depuis les classe (ou activités) où les events sont déclenchés avec EventBus
     /**
@@ -114,14 +115,21 @@ public class NeighbourFragment extends Fragment {
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        mApiService.deleteNeighbour(event.neighbour);
-        initList();
+
+            mApiService.deleteNeighbour(event.neighbour);
+            initList();
     }
 
     @Subscribe
     public void onNeighbourDetails(ShowNeighbourDetailsEvent event) {
-        Intent neighbourDetailsIntent = new Intent(getContext(), NeighbourDetailsActivity.class);
-        neighbourDetailsIntent.putExtra(BUNDLE_EXTRA_NEIGHBOUR, event.neighbour);
-        startActivity(neighbourDetailsIntent);
+
+        /*Comme notre ViewPager contient 2 instances du NeighbourFragment, on place le contenu de notre méthode uniquement dans un seul
+         *fragment (par exemple celui qui contient la liste des voisins favoris) afin qu'il n'y ait pas 2 lancements simultanés
+         *de la NeighbourDetailsActivity*/
+        if (isFavoritesPage) {
+            Intent neighbourDetailsIntent = new Intent(getContext(), NeighbourDetailsActivity.class);
+            neighbourDetailsIntent.putExtra(BUNDLE_EXTRA_NEIGHBOUR, event.neighbour);
+            startActivity(neighbourDetailsIntent);
+        }
     }
 }
